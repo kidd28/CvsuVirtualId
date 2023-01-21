@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "292459520939",
+    "firebase_url": "https://cosmic-heaven-375101-default-rtdb.firebaseio.com",
+    "project_id": "cosmic-heaven-375101",
+    "storage_bucket": "cosmic-heaven-375101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292459520939:android:80bd46e7d5ebf05f65a8ee",
+        "android_client_info": {
+          "package_name": "com.example.cvsuvirtualid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292459520939-tm8m57bosjuoami4mabv57bit6af29op.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cvsuvirtualid",
+            "certificate_hash": "1552838a6a33d10ca6c1979c3e520c7d877ad6ac"
+          }
+        },
+        {
+          "client_id": "292459520939-0t15q739abf71t7kbm3oqfuv77oo7f0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1qcNBxPa9l9wqikhBKRhSV5eWs-dBx6A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292459520939-0t15q739abf71t7kbm3oqfuv77oo7f0n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

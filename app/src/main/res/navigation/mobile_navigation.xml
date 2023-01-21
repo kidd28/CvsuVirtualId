@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation">
+
+    <fragment
+        android:id="@+id/id"
+        android:name="com.example.cvsuvirtualid.Id"
+        android:label="fragment_id"
+        tools:layout="@layout/fragment_id" />
+    <fragment
+        android:id="@+id/schedule"
+        android:name="com.example.cvsuvirtualid.Schedule"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" />
+    <fragment
+        android:id="@+id/registrationForm"
+        android:name="com.example.cvsuvirtualid.RegistrationForm"
+        android:label="fragment_regristrationform"
+        tools:layout="@layout/fragment_regristrationform" />
+    <fragment
+        android:id="@+id/announcements"
+        android:name="com.example.cvsuvirtualid.Announcements"
+        android:label="fragment_announcements"
+        tools:layout="@layout/fragment_announcements" />
+</navigation>

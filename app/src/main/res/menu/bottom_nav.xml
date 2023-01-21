@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Id"
+        android:id="@+id/Id"
+        android:icon="@drawable/ic_launcher_foreground"/>
+    <item
+        android:id="@+id/Schedule"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Schedule" />
+
+    <item android:title="Profile"
+        android:id="@+id/Profile"
+        android:icon="@drawable/ic_launcher_foreground"/>
+</menu>

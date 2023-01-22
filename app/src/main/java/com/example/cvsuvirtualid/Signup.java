@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -56,7 +57,7 @@ import java.util.Locale;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class Signup extends AppCompatActivity implements EasyPermissions.PermissionCallbacks, PickiTCallbacks {
-    EditText StuEmail, StuName, StuCourseSec, StuNumber,contact;
+    EditText StuEmail, StuName, StuCourseSec, StuNumber, contact;
     Button signup, upload;
     FirebaseDatabase database;
     FirebaseAuth mAuth;
@@ -77,10 +78,14 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
     static String folderId = "";
     GoogleSignInClient googleSignInClient;
 
+    ProgressDialog progressDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         StuEmail = findViewById(R.id.StudentEmail);
         StuName = findViewById(R.id.StudentName);
@@ -103,6 +108,11 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
         uid = user.getUid();
 
         requestSignIn();
+
+        progressDialog = new ProgressDialog(Signup.this);
+        progressDialog.setMessage("Loading..."); // Setting Message
+        progressDialog.setTitle("Login"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         pickiT = new PickiT(this, this, this);
 
@@ -228,6 +238,7 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
             }
         }
     }
+
     /**
      * Showing Alert Dialog with Settings option
      * Navigates user to app settings
@@ -255,6 +266,7 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
         });
         builder.show();
     }
+
     // navigating user to app settings
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void openSettings() {
@@ -434,14 +446,14 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
 
     @Override
     public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
-        // Get the Uri of the selected file
+        progressDialog.show();
         if (path != null && !path.equals("")) {
             if (mDriveServiceHelper != null) {
                 mDriveServiceHelper.uploadFileToGoogleDrive(path)
                         .addOnSuccessListener(new OnSuccessListener<Boolean>() {
                             @Override
                             public void onSuccess(Boolean result) {
-
+                                progressDialog.cancel();
                                 signup.setVisibility(View.VISIBLE);
                                 Toast.makeText(getApplicationContext(), "File uploaded ...!!", Toast.LENGTH_SHORT).show();
                                 Query query = FirebaseDatabase.getInstance().getReference("Students").orderByChild("uid").equalTo(user.getUid());
@@ -453,9 +465,9 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
                                             file.setText(fileName);
                                         }
                                     }
-
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
+                                        progressDialog.cancel();
                                     }
                                 });
                             }
@@ -463,6 +475,7 @@ public class Signup extends AppCompatActivity implements EasyPermissions.Permiss
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                progressDialog.cancel();
                                 Toast.makeText(getApplicationContext(), "Couldn't able to upload file, error: " + e, Toast.LENGTH_SHORT).show();
                                 System.out.println(e);
                             }

@@ -37,16 +37,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
-    TextView name,email;
+    TextView name, email;
     CircleImageView img;
     FirebaseUser user;
     FirebaseAuth auth;
     GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
         setSupportActionBar(toolbar);
@@ -81,12 +85,15 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
                 R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.green_active));
+
         toggle.syncState();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Id()).commit();
             navigationView.setCheckedItem(R.id.Id);
         }
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -112,13 +119,15 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                                 auth.signOut();
                                 revokeAccess();
                                 startActivity(new Intent(Dashboard.this, MainActivity.class));
-                                Dashboard.this.finish();                            }
+                                Dashboard.this.finish();
+                            }
                         }).create().show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

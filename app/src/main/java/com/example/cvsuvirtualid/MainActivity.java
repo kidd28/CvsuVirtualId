@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
             login = findViewById(R.id.login);
             mAuth = FirebaseAuth.getInstance();
@@ -170,6 +171,14 @@ public class MainActivity extends AppCompatActivity {
                                                         revokeAccess();
                                                     }
                                                 } else {
+                                                    user.delete()
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                    }
+                                                                }
+                                                            });
                                                     revokeAccess();
                                                     progressDialog.cancel();
                                                 }
@@ -261,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                            revokeAccess();
                             revokeAccess();
                             progressDialog.cancel();
                         }
